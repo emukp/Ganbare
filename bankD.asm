@@ -1,0 +1,15 @@
+; bank D modules
+
+	include	"bankD/00_header_0000.asm"
+	include	"bankD/01_stage_6000.asm"
+	include	"bankD/02_data_6032.asm"
+	include	"bankD/03_code_63d2.asm"
+	include	"bankD/04_code_6756.asm"
+	include	"bankD/05_code_6aa8.asm"
+	include	"bankD/06_code_6dbe.asm"
+	include	"bankD/07_code_7115.asm"
+	include	"bankD/08_data_753c.asm"
+	include	"bankD/09_stage_75b9.asm"
+	include	"bankD/10_code_78f8.asm"
+	include	"bankD/11_code_7c7a.asm"
+	include	"bankD/12_code_7fca.asm"

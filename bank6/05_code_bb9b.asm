@@ -1,0 +1,226 @@
+b6_lbb9bh:
+        RST     KEYINT                              ;bb9b
+        SUB     (hl)                                ;bb9c
+        LD      a,a                                 ;bb9d
+        RLA                                         ;bb9e
+        LD      (bc),a                              ;bb9f
+        JR      b6_lbbb1h                           ;bba0
+        SBC     a,c                                 ;bba2
+        RST     KEYINT                              ;bba3
+        SBC     a,d                                 ;bba4
+        LD      a,a                                 ;bba5
+        DEC     de                                  ;bba6
+        LD      (de),a                              ;bba7
+        JR      nz,b6_lbbbfh                        ;bba8
+        INC     bc                                  ;bbaa
+        ADC     a,a                                 ;bbab
+        ADD     a,l                                 ;bbac
+        RST     KEYINT                              ;bbad
+        ADD     a,(hl)                              ;bbae
+        LD      a,a                                 ;bbaf
+        RLCA                                        ;bbb0
+b6_lbbb1h:
+        SBC     a,d                                 ;bbb1
+        LD      a,(bc)                              ;bbb2
+        SUB     h                                   ;bbb3
+        ADC     a,e                                 ;bbb4
+        RST     KEYINT                              ;bbb5
+        ADC     a,h                                 ;bbb6
+        LD      a,a                                 ;bbb7
+        RRCA                                        ;bbb8
+        INC     bc                                  ;bbb9
+        DJNZ    b6_lbb53h                           ;bbba
+        SUB     c                                   ;bbbc
+        RST     KEYINT                              ;bbbd
+        SUB     d                                   ;bbbe
+b6_lbbbfh:
+        LD      a,a                                 ;bbbf
+b6_lbbc0h:
+        INC     d                                   ;bbc0
+        LD      a,(bc)                              ;bbc1
+        SUB     l                                   ;bbc2
+b6_lbbc3h:
+        RST     KEYINT                              ;bbc3
+        SUB     (hl)                                ;bbc4
+        LD      a,a                                 ;bbc5
+        RLA                                         ;bbc6
+        DJNZ    b6_lbbe2h                           ;bbc7
+        SBC     a,(hl)                              ;bbc9
+        LD      a,(de)                              ;bbca
+        RLCA                                        ;bbcb
+        SBC     a,l                                 ;bbcc
+        RST     KEYINT                              ;bbcd
+        LD      e,0x19                              ;bbce
+        SBC     a,(hl)                              ;bbd0
+        RRA                                         ;bbd1
+        SBC     a,a                                 ;bbd2
+        SBC     a,(hl)                              ;bbd3
+        LD      d,0x4                               ;bbd4
+        ADC     a,c                                 ;bbd6
+        RST     KEYINT                              ;bbd7
+        ADC     a,d                                 ;bbd8
+        LD      a,a                                 ;bbd9
+        ADC     a,a                                 ;bbda
+        RST     KEYINT                              ;bbdb
+        SUB     b                                   ;bbdc
+        LD      a,a                                 ;bbdd
+        LD      d,0x8                               ;bbde
+        ADD     a,b                                 ;bbe0
+        DEC     b                                   ;bbe1
+b6_lbbe2h:
+        ADD     a,l                                 ;bbe2
+        ADD     a,b                                 ;bbe3
+        ADD     a,(hl)                              ;bbe4
+        RLCA                                        ;bbe5
+        ADD     a,a                                 ;bbe6
+        ADD     a,(hl)                              ;bbe7
+        ADC     a,b                                 ;bbe8
+        LD      a,a                                 ;bbe9
+        ADC     a,l                                 ;bbea
+        RST     KEYINT                              ;bbeb
+        ADC     a,(hl)                              ;bbec
+        DEC     d                                   ;bbed
+        SUB     l                                   ;bbee
+        ADC     a,(hl)                              ;bbef
+        LD      d,0x6                               ;bbf0
+        ADD     a,b                                 ;bbf2
+        ADD     hl,bc                               ;bbf3
+        ADC     a,c                                 ;bbf4
+        ADD     a,b                                 ;bbf5
+        ADC     a,d                                 ;bbf6
+        LD      a,a                                 ;bbf7
+        SUB     c                                   ;bbf8
+        RST     KEYINT                              ;bbf9
+        SUB     d                                   ;bbfa
+        DEC     d                                   ;bbfb
+        SUB     l                                   ;bbfc
+        SUB     d                                   ;bbfd
+        LD      e,0x10                              ;bbfe
+        LD      bc,0x297                            ;bc00
+        ADC     a,(hl)                              ;bc03
+        ADD     a,e                                 ;bc04
+        RST     KEYINT                              ;bc05
+        ADD     a,h                                 ;bc06
+        LD      a,a                                 ;bc07
+        ADD     a,l                                 ;bc08
+        RST     KEYINT                              ;bc09
+        ADD     a,(hl)                              ;bc0a
+        LD      a,a                                 ;bc0b
+        ADD     hl,bc                               ;bc0c
+        SBC     a,b                                 ;bc0d
+        LD      c,0x2                               ;bc0e
+        LD      (de),a                              ;bc10
+        SBC     a,h                                 ;bc11
+        SUB     l                                   ;bc12
+        RST     KEYINT                              ;bc13
+        SUB     (hl)                                ;bc14
+        LD      a,a                                 ;bc15
+        RLA                                         ;bc16
+        LD      bc,0x918                            ;bc17
+        SBC     a,c                                 ;bc1a
+        RST     KEYINT                              ;bc1b
+        SBC     a,d                                 ;bc1c
+        LD      a,a                                 ;bc1d
+        INC     e                                   ;bc1e
+        LD      (de),a                              ;bc1f
+        JR      b6_lbc26h                           ;bc20
+        ADC     a,e                                 ;bc22
+        RST     KEYINT                              ;bc23
+        ADC     a,h                                 ;bc24
+        LD      a,a                                 ;bc25
+b6_lbc26h:
+        SUB     c                                   ;bc26
+        RST     KEYINT                              ;bc27
+b6_lbc28h:
+        SUB     d                                   ;bc28
+        LD      a,a                                 ;bc29
+        LD      a,(0x320)                           ;bc2a
+        SUB     a                                   ;bc2d
+        ADD     a,a                                 ;bc2e
+        RST     KEYINT                              ;bc2f
+        ADC     a,b                                 ;bc30
+        LD      a,a                                 ;bc31
+        LD      a,(bc)                              ;bc32
+        SUB     h                                   ;bc33
+        ADC     a,e                                 ;bc34
+        RST     KEYINT                              ;bc35
+        ADC     a,h                                 ;bc36
+        LD      a,a                                 ;bc37
+        LD      c,0xa2                              ;bc38
+        SUB     c                                   ;bc3a
+        RST     KEYINT                              ;bc3b
+        SUB     d                                   ;bc3c
+        LD      a,a                                 ;bc3d
+        INC     de                                  ;bc3e
+        AND     l                                   ;bc3f
+        INC     d                                   ;bc40
+        LD      a,(bc)                              ;bc41
+        SUB     l                                   ;bc42
+        RST     KEYINT                              ;bc43
+        SUB     (hl)                                ;bc44
+        LD      a,a                                 ;bc45
+        RLA                                         ;bc46
+        INC     bc                                  ;bc47
+        SBC     a,c                                 ;bc48
+        RST     KEYINT                              ;bc49
+        SBC     a,d                                 ;bc4a
+        LD      a,a                                 ;bc4b
+        DEC     de                                  ;bc4c
+        XOR     h                                   ;bc4d
+        SBC     a,l                                 ;bc4e
+        RST     KEYINT                              ;bc4f
+        SBC     a,(hl)                              ;bc50
+        LD      a,a                                 ;bc51
+        LD      (0xa30e),hl                         ;bc52
+        RST     KEYINT                              ;bc55
+        AND     h                                   ;bc56
+        LD      a,a                                 ;bc57
+        DEC     h                                   ;bc58
+        INC     de                                  ;bc59
+        LD      h,0xb0                              ;bc5a
+        AND     a                                   ;bc5c
+        RST     KEYINT                              ;bc5d
+        XOR     b                                   ;bc5e
+        LD      a,a                                 ;bc5f
+        ADD     hl,hl                               ;bc60
+        OR      (hl)                                ;bc61
+        INC     l                                   ;bc62
+        DEC     de                                  ;bc63
+        XOR     l                                   ;bc64
+        RST     KEYINT                              ;bc65
+        XOR     (hl)                                ;bc66
+        LD      a,a                                 ;bc67
+        JR      nc,b6_lbc90h                        ;bc68
+        LD      (hl),0x29                           ;bc6a
+        LD      (0x412),hl                          ;bc6c
+        ADC     a,(hl)                              ;bc6f
+        RLCA                                        ;bc70
+        SUB     a                                   ;bc71
+        ADC     a,c                                 ;bc72
+        RST     KEYINT                              ;bc73
+        ADC     a,d                                 ;bc74
+        LD      a,a                                 ;bc75
+        DEC     c                                   ;bc76
+        SUB     e                                   ;bc77
+        LD      c,0x4                               ;bc78
+        ADC     a,a                                 ;bc7a
+        RST     KEYINT                              ;bc7b
+        DJNZ    $-100                               ;bc7c
+        SUB     b                                   ;bc7e
+        LD      de,0x9091                           ;bc7f
+        SUB     d                                   ;bc82
+        LD      a,a                                 ;bc83
+        INC     de                                  ;bc84
+        DEC     c                                   ;bc85
+        INC     d                                   ;bc86
+        SBC     a,(hl)                              ;bc87
+        RLA                                         ;bc88
+        RLCA                                        ;bc89
+        LD      a,(de)                              ;bc8a
+        DJNZ    b6_lbc28h                           ;bc8b
+        RST     KEYINT                              ;bc8d
+        SBC     a,h                                 ;bc8e
+        LD      a,a                                 ;bc8f
+b6_lbc90h:
+        LD      e,0x14                              ;bc90
+gfxKonamiLogo: equ     #bc92

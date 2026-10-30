@@ -1,0 +1,397 @@
+        DEFB    0x57,0xb8,0xd0,0x00,0x57,0xc8,0xd0,0x00  ;9af4 ; data:code-gap
+        DEFB    0x67,0xb8,0xd0,0x00,0x67,0xc8,0xd0,0x00  ;9afc
+        DEFB    0x57,0x28,0xd0,0x00,0x57,0x38,0xd0,0x00  ;9b04
+        DEFB    0x67,0x28,0xd0,0x00,0x67,0x38,0xd0,0x00  ;9b0c
+        DEFB    0xb0,0x78,0x00,0x00,0xc0,0x78,0x04,0x00  ;9b14
+        DEFB    0xc0,0x78,0x08,0x00,0xc0,0x78,0x0c,0x00  ;9b1c
+        DEFB    0xb0,0x78,0x00,0x00,0xc0,0x78,0x04,0x00  ;9b24
+        DEFB    0xb8,0x78,0x08,0x00,0xc0,0x78,0x0c,0x00  ;9b2c
+b2_l9b04h: equ     #9b04
+b2_l9b14h: equ     #9b14
+b2_l9b24h: equ     #9b24
+        LD      a,(BDemoCurInput)                   ;9b34
+        CALL    JumpIndex                           ;9b37
+        DEFW    0x9b46,0x9b52,0x9b66,0x9b75         ;9b3a ; data:jumptable
+        DEFW    0x9ba1,0x9bb2,0x553a,0xb7cd         ;9b42
+        RET     nz                                  ;9b4a
+        LD      a,0x20                              ;9b4b
+        LD      (0xcd56),a                          ;9b4d
+        JR      b2_l9b61h                           ;9b50
+        LD      hl,0xcd56                           ;9b52
+        DEC     (hl)                                ;9b55
+        RET     nz                                  ;9b56
+        LD      a,0x40                              ;9b57
+        LD      (hl),a                              ;9b59
+        CALL    b2_l9adfh                           ;9b5a
+b2_l9b5dh: equ     #9b5d
+        LD      hl,0xcd55                           ;9b5d
+        INC     (hl)                                ;9b60
+b2_l9b61h: equ     #9b61
+        LD      hl,BDemoCurInput                    ;9b61
+        INC     (hl)                                ;9b64
+        RET                                         ;9b65
+        LD      hl,0xcd56                           ;9b66
+        DEC     (hl)                                ;9b69
+        RET     nz                                  ;9b6a
+        LD      a,0xc0                              ;9b6b
+        LD      (hl),a                              ;9b6d
+        LD      a,0x1d                              ;9b6e
+        CALL    DrawShopDialog                      ;9b70
+        JR      b2_l9b5dh                           ;9b73
+        LD      hl,0xcd56                           ;9b75
+        DEC     (hl)                                ;9b78
+        RET     nz                                  ;9b79
+        LD      a,0xa0                              ;9b7a
+        LD      (hl),a                              ;9b7c
+        LD      hl,BDemoCurInput                    ;9b7d
+        INC     (hl)                                ;9b80
+        LD      a,0xd                               ;9b81
+        CALL    PrintDialogText                     ;9b83
+        LD      hl,0x3030                           ;9b86
+        LD      a,0x22                              ;9b89
+        LD      d,0x0                               ;9b8b
+        LD      bc,0xa018                           ;9b8d
+        CALL    FillRect                            ;9b90
+        LD      hl,0xcd57                           ;9b93
+        LD      (hl),0x7                            ;9b96
+        CALL    b2_sub_9bbfh                        ;9b98
+        LD      de,0x3030                           ;9b9b
+        JP      0x42e1                              ;9b9e
+        LD      hl,0xcd57                           ;9ba1
+        DEC     (hl)                                ;9ba4
+        RET     nz                                  ;9ba5
+        LD      (hl),0x7                            ;9ba6
+        CALL    0x42f1                              ;9ba8
+        LD      a,(0xcd67)                          ;9bab
+        OR      a                                   ;9bae
+        RET     z                                   ;9baf
+        JR      b2_l9b61h                           ;9bb0
+        LD      hl,0xcd56                           ;9bb2
+        DEC     (hl)                                ;9bb5
+        RET     nz                                  ;9bb6
+        XOR     a                                   ;9bb7
+        LD      (0xcd11),a                          ;9bb8
+        LD      (0xcd60),a                          ;9bbb
+        RET                                         ;9bbe
+b2_sub_9bbfh:
+        LD      a,(GameLand)                        ;9bbf
+        CP      0x6                                 ;9bc2
+        JR      z,b2_l9bd1h                         ;9bc4
+        LD      b,a                                 ;9bc6
+        LD      a,(0xcd60)                          ;9bc7
+        CP      0x8                                 ;9bca
+        LD      hl,b2_l9f92h                        ;9bcc
+        RET     nc                                  ;9bcf
+        LD      a,b                                 ;9bd0
+b2_l9bd1h:
+        ADD     a,a                                 ;9bd1
+        LD      hl,b2_l9e0bh                        ;9bd2
+        CALL    ADD_HL_A                            ;9bd5
+        LD      a,(hl)                              ;9bd8
+        INC     hl                                  ;9bd9
+        LD      h,(hl)                              ;9bda
+        LD      l,a                                 ;9bdb
+        RET                                         ;9bdc
+        LD      de,0x3878                           ;9bdd
+        JP      b2_sub_8334h                        ;9be0
+        CALL    b2_sub_9abfh                        ;9be3
+        CALL    b2_sub_9ad8h                        ;9be6
+        XOR     a                                   ;9be9
+        LD      (ix+0xc),a                          ;9bea
+        LD      (ix+0xf),a                          ;9bed
+        LD      de,0x80                             ;9bf0
+        CALL    b2_sub_87e4h                        ;9bf3
+        LD      de,0x0                              ;9bf6
+        CALL    b2_l87ebh                           ;9bf9
+        JP      b2_l893dh                           ;9bfc
+        LD      a,(ix+0x1)                          ;9bff
+        CALL    JumpIndex                           ;9c02
+        DEFW    0x9c0d,0x9c3d,0x9ca2,0x9cc8         ;9c05 ; data:table
+        LD      b,0x72                              ;9c0d
+        CALL    b2_sub_9dfch                        ;9c0f
+        LD      a,(ix+0x5)                          ;9c12
+        CP      0x80                                ;9c15
+        RET     c                                   ;9c17
+        INC     (ix+0x1)                            ;9c18
+        LD      (ix+0xb),0x20                       ;9c1b
+        LD      de,0x0                              ;9c1f
+        CALL    b2_sub_87e4h                        ;9c22
+        CALL    b2_l87ebh                           ;9c25
+b2_l9c28h:
+        LD      (ix+0xa),0x74                       ;9c28
+b2_l9c2ch:
+        EXX                                         ;9c2c
+        LD      de,0x57c8                           ;9c2d
+b2_l9c30h:
+        EXX                                         ;9c30
+        PUSH    ix                                  ;9c31
+        POP     hl                                  ;9c33
+        LD      a,(ix+0x0)                          ;9c34
+        LD      (0xcd37),a                          ;9c37
+        JP      0x5503                              ;9c3a
+        LD      a,(GameLand)                        ;9c3d
+        CP      0x6                                 ;9c40
+        JR      z,b2_l9c65h                         ;9c42
+        LD      a,(0xcd60)                          ;9c44
+        CP      0x8                                 ;9c47
+        JR      c,b2_l9c65h                         ;9c49
+        DEC     (ix+0xb)                            ;9c4b
+        RET     nz                                  ;9c4e
+        LD      (ix+0xb),0xd                        ;9c4f
+        LD      a,0x20                              ;9c53
+        CALL    ProcessSoundCommand                 ;9c55
+        CALL    b2_sub_9aedh                        ;9c58
+        LD      (ix+0x1),0x3                        ;9c5b
+        LD      (ix+0xa),0x95                       ;9c5f
+        JR      b2_l9c2ch                           ;9c63
+b2_l9c65h:
+        DEC     (ix+0xb)                            ;9c65
+        RET     nz                                  ;9c68
+        LD      (ix+0xb),0x20                       ;9c69
+        LD      a,0xa                               ;9c6d
+        CALL    ProcessSoundCommand                 ;9c6f
+        CALL    b2_sub_9aedh                        ;9c72
+        INC     (ix+0x1)                            ;9c75
+        LD      (ix+0xa),0x75                       ;9c78
+        LD      (ix+0x25),0x2                       ;9c7c
+        LD      (ix+0x2a),0x44                      ;9c80
+        LD      (ix+0x2f),0x1                       ;9c84
+        LD      (ix+0x34),0x42                      ;9c88
+        LD      (ix+0x39),0x1                       ;9c8c
+        LD      (ix+0x3e),0x42                      ;9c90
+        LD      (ix+0x43),0x41                      ;9c94
+        LD      (ix+0x48),0x42                      ;9c98
+        EXX                                         ;9c9c
+        LD      de,0x57d6                           ;9c9d
+        JR      b2_l9c30h                           ;9ca0
+        DEC     (ix+0xb)                            ;9ca2
+        RET     nz                                  ;9ca5
+        LD      (ix+0xb),0x20                       ;9ca6
+        DEC     (ix+0x1)                            ;9caa
+        LD      (ix+0x25),0x1                       ;9cad
+        LD      (ix+0x2a),0x42                      ;9cb1
+        LD      (ix+0x2f),0x2                       ;9cb5
+        LD      (ix+0x34),0x44                      ;9cb9
+        LD      (ix+0x39),0x2                       ;9cbd
+        LD      (ix+0x3e),0x44                      ;9cc1
+        JP      b2_l9c28h                           ;9cc5
+        DEC     (ix+0xb)                            ;9cc8
+        RET     nz                                  ;9ccb
+        LD      (ix+0xb),0xd                        ;9ccc
+        LD      (ix+0x1),0x1                        ;9cd0
+        JP      b2_l9c28h                           ;9cd4
+        PUSH    bc                                  ;9cd7
+        CALL    b2_sub_8334h                        ;9cd8
+        POP     bc                                  ;9cdb
+        PUSH    bc                                  ;9cdc
+        CALL    b2_sub_8334h                        ;9cdd
+        POP     bc                                  ;9ce0
+        PUSH    bc                                  ;9ce1
+        CALL    b2_sub_8334h                        ;9ce2
+        POP     bc                                  ;9ce5
+        JP      b2_sub_8334h                        ;9ce6
+        LD      a,(0xcd30)                          ;9ce9
+        LD      (ix+0xb),a                          ;9cec
+        ADD     a,0x40                              ;9cef
+        LD      (0xcd30),a                          ;9cf1
+        LD      (ix+0xe),0x1                        ;9cf4
+        LD      (ix+0xc),0x0                        ;9cf8
+        LD      de,(0xcd50)                         ;9cfc
+        LD      a,(de)                              ;9d00
+        LD      (ix+0x10),a                         ;9d01
+        INC     de                                  ;9d04
+        PUSH    de                                  ;9d05
+        LD      a,(de)                              ;9d06
+        LD      (ix+0xf),a                          ;9d07
+        CALL    b2_l893dh                           ;9d0a
+        LD      de,0x0                              ;9d0d
+        CALL    b2_sub_87e4h                        ;9d10
+        CALL    b2_l87ebh                           ;9d13
+        POP     de                                  ;9d16
+        INC     de                                  ;9d17
+        LD      a,(de)                              ;9d18
+        LD      (ix+0x5),a                          ;9d19
+        LD      (ix+0x3),0x78                       ;9d1c
+        INC     de                                  ;9d20
+        LD      (0xcd50),de                         ;9d21
+        RET                                         ;9d25
+b2_l9d26h: equ     #9d26
+        DEFB    0xb0,0x00,0xc8,0xb0,0x01,0x38,0x90,0x00  ;9d26 ; data:code-gap
+        DEFB    0xc8,0x90,0x01,0x38                 ;9d2e
+        DEFB    0xdd                                ;9d32
+        LD      a,(hl)                              ;9d33
+        LD      bc,b2_l8dcdh                        ;9d34
+        LD      b,b                                 ;9d37
+        DEFW    0x9d46,0x9d67,0x9d84,0x9da5         ;9d38 ; data:table
+        DEFW    0x9dae,0x9dd1,0x9dad                ;9d40
+        DEC     (ix+0xb)                            ;9d46
+        RET     nz                                  ;9d49
+        INC     (ix+0x1)                            ;9d4a
+        DEC     (ix+0xe)                            ;9d4d
+        LD      (ix+0xb),0x34                       ;9d50
+        LD      de,0x80                             ;9d54
+        BIT     0,(ix+0xf)                          ;9d57
+        CALL    z,b2_sub_8c0ah                      ;9d5b
+        CALL    b2_sub_87e4h                        ;9d5e
+        LD      de,0x0                              ;9d61
+        JP      b2_l87ebh                           ;9d64
+        CALL    b2_sub_9df0h                        ;9d67
+        DEC     (ix+0xb)                            ;9d6a
+        RET     nz                                  ;9d6d
+        INC     (ix+0x1)                            ;9d6e
+        LD      de,0x80                             ;9d71
+        CALL    b2_l87ebh                           ;9d74
+        LD      de,0x20                             ;9d77
+        BIT     0,(ix+0xf)                          ;9d7a
+        CALL    nz,b2_sub_8c0ah                     ;9d7e
+        JP      b2_sub_87e4h                        ;9d81
+        LD      a,(0xcd55)                          ;9d84
+        OR      a                                   ;9d87
+        JR      z,b2_l9d98h                         ;9d88
+        CALL    b2_sub_9df0h                        ;9d8a
+        LD      a,(ix+0x3)                          ;9d8d
+        CP      (ix+0x10)                           ;9d90
+        RET     c                                   ;9d93
+        LD      hl,0xcd55                           ;9d94
+        DEC     (hl)                                ;9d97
+b2_l9d98h:
+        LD      de,0x0                              ;9d98
+        CALL    b2_sub_87e4h                        ;9d9b
+        CALL    b2_l87ebh                           ;9d9e
+        INC     (ix+0x1)                            ;9da1
+        RET                                         ;9da4
+        LD      a,(0xcd55)                          ;9da5
+        OR      a                                   ;9da8
+        RET     nz                                  ;9da9
+        INC     (ix+0x1)                            ;9daa
+        RET                                         ;9dad
+        LD      a,(0xcd55)                          ;9dae
+        DEC     a                                   ;9db1
+        RET     nz                                  ;9db2
+        INC     (ix+0x1)                            ;9db3
+        LD      (ix+0x25),0x1                       ;9db6
+        LD      (ix+0x2a),0x42                      ;9dba
+        LD      a,0x76                              ;9dbe
+        ADD     a,(ix+0xf)                          ;9dc0
+        LD      (ix+0xa),a                          ;9dc3
+        EXX                                         ;9dc6
+        LD      de,0x57ed                           ;9dc7
+b2_l9dcah:
+        EXX                                         ;9dca
+        PUSH    ix                                  ;9dcb
+        POP     hl                                  ;9dcd
+        JP      0x5503                              ;9dce
+        LD      a,(0xcd55)                          ;9dd1
+        CP      0x2                                 ;9dd4
+        RET     nz                                  ;9dd6
+        INC     (ix+0x1)                            ;9dd7
+        LD      (ix+0x25),0x2                       ;9dda
+        LD      (ix+0x2a),0x44                      ;9dde
+        LD      a,0x78                              ;9de2
+        ADD     a,(ix+0xf)                          ;9de4
+        LD      (ix+0xa),a                          ;9de7
+        EXX                                         ;9dea
+        LD      de,0x57f3                           ;9deb
+        JR      b2_l9dcah                           ;9dee
+b2_sub_9df0h:
+        LD      a,(ix+0x7e)                         ;9df0
+        BIT     0,(ix+0xf)                          ;9df3
+        JR      z,b2_l9dfbh                         ;9df7
+        ADD     a,0x2                               ;9df9
+b2_l9dfbh:
+        LD      b,a                                 ;9dfb
+b2_sub_9dfch:
+        LD      a,(TickCounter)                     ;9dfc
+        RRCA                                        ;9dff
+        RRCA                                        ;9e00
+        RRCA                                        ;9e01
+        AND     0x1                                 ;9e02
+        ADD     a,b                                 ;9e04
+        LD      (ix+0xa),a                          ;9e05
+        JP      b2_l8975h                           ;9e08
+b2_l9e0bh: equ     #9e0b
+        DEFB    0x19,0x9e,0x49,0x9e,0x82,0x9e,0xc0,0x9e  ;9e0b ; data:code-gap
+        DEFB    0xe8,0x9e,0x22,0x9f,0x5a,0x9f,0x34,0x46  ;9e13
+        DEFB    0x3b,0x48,0x00,0x31,0x5b,0x5d,0x43,0x00  ;9e1b
+        DEFB    0x3c,0x58,0x39,0x43,0x49,0xfe,0x55,0x66  ;9e23
+        DEFB    0x37,0x00,0x5b,0x35,0x5e,0x3f,0x64,0x00  ;9e2b
+        DEFB    0x39,0x39,0x5a,0x00,0x30,0x56,0x3f,0x51  ;9e33
+        DEFB    0xfe,0x55,0x31,0x00,0x43,0x48,0x45,0x00  ;9e3b
+        DEFB    0x44,0x58,0x3e,0x63,0x64,0xff,0x44,0x58  ;9e43
+        DEFB    0x4d,0x43,0x63,0x00,0x34,0x46,0x3b,0x49  ;9e4b
+        DEFB    0x00,0x33,0x56,0x31,0x64,0xfe,0x4f,0x30  ;9e53
+        DEFB    0x38,0x63,0x3f,0x00,0x52,0x5d,0x3b,0x63  ;9e5b
+        DEFB    0x5f,0x64,0x00,0x4d,0x32,0x4a,0x63,0x45  ;9e63
+        DEFB    0xfe,0x3f,0x5d,0x49,0x63,0x48,0x00,0x42  ;9e6b
+        DEFB    0x42,0x32,0x40,0x37,0x63,0x57,0x5c,0x00  ;9e73
+        DEFB    0x43,0x56,0x3d,0x58,0x3e,0x63,0xff,0x44  ;9e7b
+        DEFB    0x58,0x4d,0x43,0x63,0x3a,0x63,0x00,0x5b  ;9e83
+        DEFB    0x58,0x35,0x5e,0x3f,0x43,0x63,0x64,0x30  ;9e8b
+        DEFB    0x53,0x4e,0x58,0x64,0xfe,0x47,0x5d,0x37  ;9e93
+        DEFB    0x63,0x49,0x00,0x4b,0x53,0x3a,0x5d,0x64  ;9e9b
+        DEFB    0x4d,0x63,0x32,0x33,0x31,0x4a,0x00,0x52  ;9ea3
+        DEFB    0xfe,0x38,0x3c,0x63,0x58,0x64,0x00,0x39  ;9eab
+        DEFB    0x32,0x53,0x37,0x00,0x49,0x00,0x4e,0x52  ;9eb3
+        DEFB    0x58,0x3e,0x63,0x64,0xff,0x31,0x4e,0x48  ;9ebb
+        DEFB    0x00,0x34,0x46,0x3b,0x48,0x39,0x43,0x49  ;9ec3
+        DEFB    0x63,0x42,0x63,0xfe,0x5b,0x3b,0x52,0x00  ;9ecb
+        DEFB    0x51,0x35,0x63,0x3a,0x51,0x3f,0x64,0xfe  ;9ed3
+        DEFB    0x34,0x49,0x55,0x32,0x00,0x44,0x5d,0x40  ;9edb
+        DEFB    0x5f,0x5e,0x42,0x64,0xff,0x31,0x4e,0x4e  ;9ee3
+        DEFB    0x42,0x63,0x48,0x5b,0x3b,0x49,0x00,0x31  ;9eeb
+        DEFB    0x48,0x44,0x35,0x48,0x00,0x34,0x35,0x3c  ;9ef3
+        DEFB    0x63,0xfe,0x31,0x53,0x00,0x35,0x5b,0x3c  ;9efb
+        DEFB    0x63,0x42,0x63,0x00,0x30,0x5e,0x3f,0x64  ;9f03
+        DEFB    0xfe,0x52,0x5e,0x43,0x3b,0x61,0x4f,0x5d  ;9f0b
+        DEFB    0x48,0x3f,0x51,0x48,0x3d,0x31,0x3b,0x63  ;9f13
+        DEFB    0x5c,0x3c,0x58,0x3e,0x63,0x64,0xff,0x3b  ;9f1b
+        DEFB    0x61,0x4f,0x5d,0x48,0x00,0x37,0x58,0x3b  ;9f23
+        DEFB    0x4f,0x00,0x55,0x66,0x37,0x00,0x5b,0x35  ;9f2b
+        DEFB    0x5e,0x3f,0x64,0xfe,0x52,0x32,0x00,0x44  ;9f33
+        DEFB    0x45,0x52,0x00,0x31,0x32,0x42,0x63,0x44  ;9f3b
+        DEFB    0x31,0x64,0xfe,0x55,0x31,0x00,0x3d,0x31  ;9f43
+        DEFB    0x3b,0x63,0x5c,0x00,0x53,0x37,0x3e,0x37  ;9f4b
+        DEFB    0x00,0x3c,0x58,0x3e,0x63,0x64,0xff,0x4a  ;9f53
+        DEFB    0x3a,0x3b,0x31,0x48,0x32,0x64,0x41,0x31  ;9f5b
+        DEFB    0x45,0x39,0x39,0x4e,0x42,0x63,0x36,0x34  ;9f63
+        DEFB    0x5e,0x3f,0x35,0xfe,0x34,0x46,0x3b,0x52  ;9f6b
+        DEFB    0x00,0x3d,0x31,0x40,0x61,0x32,0x3b,0x3f  ;9f73
+        DEFB    0x64,0xfe,0x34,0x46,0x3b,0x48,0x00,0x3b  ;9f7b
+        DEFB    0x5d,0x38,0x63,0x5d,0x00,0x36,0x36,0x31  ;9f83
+        DEFB    0x59,0x55,0x32,0x3e,0x63,0x64,0xff,0x34  ;9f8b
+        DEFB    0x46,0x3b,0x00,0x5b,0x3b,0x48,0x3d,0x31  ;9f93
+        DEFB    0x3b,0x63,0x45,0x38,0x40,0x5c,0x41,0x38  ;9f9b
+        DEFB    0x58,0x35,0x64,0xfe,0x31,0x31,0x00,0x43  ;9fa3
+        DEFB    0x63,0x36,0x61,0x32,0x3f,0x63,0x64,0xfe  ;9fab
+        DEFB    0x41,0x36,0x63,0x48,0x3c,0x42,0x66,0x3b  ;9fb3
+        DEFB    0x63,0x00,0x34,0x4d,0x63,0x33,0x42,0x34  ;9fbb
+        DEFB    0x37,0x35,0x63,0x31,0x31,0x64,0xff  ;9fc3
+b2_l9e8fh: equ     #9e8f
+b2_l9e94h: equ     #9e94
+b2_l9ee7h: equ     #9ee7
+b2_l9f67h: equ     #9f67
+b2_l9f92h: equ     #9f92
+        XOR     a                                   ;9fca
+        LD      (ix+0x7f),a                         ;9fcb
+        INC     a                                   ;9fce
+        LD      (ix+0x1d),a                         ;9fcf
+        CALL    0xa067                              ;9fd2
+        CALL    0xa028                              ;9fd5
+        CALL    0xa954                              ;9fd8
+        JP      b2_l893dh                           ;9fdb
+        LD      de,0xa008                           ;9fde
+        LD      a,(ix+0x7f)                         ;9fe1
+        INC     (ix+0x7f)                           ;9fe4
+        CP      0x20                                ;9fe7
+b2_l9fe9h:
+        JR      nc,$+23                             ;9fe9
+        CALL    ADD_DE_A                            ;9feb
+        LD      a,(de)                              ;9fee
+        ADD     a,(ix+0x3)                          ;9fef
+        LD      (ix+0x3),a                          ;9ff2
+        DEC     (ix+0x78)                           ;9ff5
+        RET     nz                                  ;9ff8
+        LD      a,(ix+0x77)                         ;9ff9
+b2_l9ffch:
+        LD      (ix+0x78),a                         ;9ffc
+        RET                                         ;9fff
