@@ -12,7 +12,8 @@
 ;     (bank0: SetBanks1_2_3..D_E_F at 0x4206/0x4220/0x4238/0x4250/0x4268)
 ;   RAM shadow registers: 0xF0F1/0xF0F2/0xF0F3 = current bank of 0x6000/0x8000/0xA000
 ;
-; File layout: ROM image = 16 banks concatenated in bank0..bankF order
+; File layout: ROM image = 32 banks concatenated in bank order
+;              (bank 0x00-0x0F original, 0x10-0x1F zh-hack expansion)
 ; =============================================================================
 	org	0			; ROM image starts at file offset 0
 
@@ -20,102 +21,10 @@
 	include	"constants/SystemVariables.asm"		; system variable address symbols
 	include	"constants/Variables.asm"		; game RAM variable symbols (auto-generated)
 
-	PHASE	04000h			; bank 0 (fixed at 0x4000, holds ROM header)
-	include	"bank0.asm"
-	UNPHASE
-	PHASE	06000h			; bank 1 (initial/resident bank of 0x6000 slot)
-	include	"bank1.asm"
-	UNPHASE
-	PHASE	08000h			; bank 2 (0x8000 slot)
-	include	"bank2.asm"
-	UNPHASE
-	PHASE	0A000h			; bank 3 (0xA000 slot)
-	include	"bank3.asm"
-	UNPHASE
-	PHASE	06000h			; bank 4
-	include	"bank4.asm"
-	UNPHASE
-	PHASE	08000h			; bank 5
-	include	"bank5.asm"
-	UNPHASE
-	PHASE	0A000h			; bank 6
-	include	"bank6.asm"
-	UNPHASE
-	PHASE	06000h			; bank 7
-	include	"bank7.asm"
-	UNPHASE
-	PHASE	08000h			; bank 8
-	include	"bank8.asm"
-	UNPHASE
-	PHASE	0A000h			; bank 9
-	include	"bank9.asm"
-	UNPHASE
-	PHASE	06000h			; bank A
-	include	"bankA.asm"
-	UNPHASE
-	PHASE	08000h			; bank B
-	include	"bankB.asm"
-	UNPHASE
-	PHASE	0A000h			; bank C
-	include	"bankC.asm"
-	UNPHASE
-	PHASE	06000h			; bank D
-	include	"bankD.asm"
-	UNPHASE
-	PHASE	08000h			; bank E (font data 0x929D etc.)
-	include	"bankE.asm"
-	UNPHASE
-	PHASE	0A000h			; bank F
-	include	"bankF.asm"
-	UNPHASE
-
-; ---- zh-hack expansion banks 0x10-0x1F (new code + Chinese glyph data) ----
-	PHASE	08000h			; bank 0x10 (code bank, slot 0x8000)
-	include	"bank10.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x11 (glyph data)
-	include	"bank11.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x12
-	include	"bank12.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x13
-	include	"bank13.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x14
-	include	"bank14.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x15
-	include	"bank15.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x16
-	include	"bank16.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x17
-	include	"bank17.asm"
-	UNPHASE
-	PHASE	06000h			; bank 0x18 (Game Over streams at 0x6000)
-	include	"bank18.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x19
-	include	"bank19.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1A
-	include	"bank1A.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1B
-	include	"bank1B.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1C
-	include	"bank1C.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1D
-	include	"bank1D.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1E
-	include	"bank1E.asm"
-	UNPHASE
-	PHASE	08000h			; bank 0x1F
-	include	"bank1F.asm"
-	UNPHASE
-
+; Bank groups live in Banks*.asm; each bank is PHASE'd at its runtime address.
+	include	"Banks0123.asm"		; banks 0x0-0x3 (header + first 12 KiB)
+	include	"Banks456.asm"		; banks 0x4-0x6
+	include	"Banks789.asm"		; banks 0x7-0x9
+	include	"BanksABC.asm"		; banks 0xA-0xC
+	include	"BanksDEF.asm"		; banks 0xD-0xF
+	include	"BanksExpansion.asm"	; banks 0x10-0x1F (zh-hack)

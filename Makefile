@@ -14,12 +14,12 @@ WORKDIR   := work
 BASEROM   := $(WORKDIR)/base.rom
 SHADOW_DEPS := tools/build_texts.py textscn.tsv texts.tsv tools/zh_glyph_index.tsv
 
-BANKS     := 0 1 2 3 4 5 6 7 8 9 A B C D E F \
-             10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F
-BANK_SRCS := $(foreach b,$(BANKS),bank$(b).asm)
+GROUP_SRCS := Banks0123.asm Banks456.asm Banks789.asm \
+              BanksABC.asm BanksDEF.asm BanksExpansion.asm
 CONST_SRCS := $(wildcard constants/*.asm)
-MODULE_SRCS := $(wildcard bank*/*.asm)          # 模块文件 (bankN/ 目录, 手工维护)
-SRC_SRCS  := Ganbare.asm $(BANK_SRCS) $(CONST_SRCS) $(MODULE_SRCS)
+MODULE_SRCS := $(wildcard logic/*.asm) $(wildcard data/*.asm) \
+               $(wildcard gfx/*.asm) $(wildcard sound/*.asm)
+SRC_SRCS  := Ganbare.asm $(GROUP_SRCS) $(CONST_SRCS) $(MODULE_SRCS)
 
 # ---------- 编译 ----------
 .PHONY: all run clean
